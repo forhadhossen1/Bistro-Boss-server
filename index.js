@@ -49,7 +49,7 @@ async function run() {
         app.get('/users', async (req, res) => {
             const result = await userCollection.find().toArray();
             res.send(result);
-        });
+        });  
 
         app.post('/users', async (req, res) => {
             const user = req.body;
