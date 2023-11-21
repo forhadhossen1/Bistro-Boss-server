@@ -71,7 +71,7 @@ async function run() {
         }
 
 
-        app.get('/users/admin/:email', verifyToken, verifyAdmin, async (req, res) => {
+        app.get('/users/admin/:email', verifyToken, async (req, res) => {
             const email = req.params.email;
             if (email !== req.decoded.email) {
                 return res.status(403).send({ message: 'forbidden access' })
@@ -91,9 +91,9 @@ async function run() {
             res.send(result);
         })
 
-        app.post('/menu', async(req, res) => {
-            const menu = req.body;
-            const result = await menuCollection.insertOne(menu);
+        app.post('/menu', verifyToken, verifyAdmin, async(req, res) => {
+            const menus = req.body;
+            const result = await menuCollection.insertOne(menus);
             res.send(result);
         })
 
